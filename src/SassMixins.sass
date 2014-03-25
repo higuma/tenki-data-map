@@ -1,0 +1,35 @@
+// common mixins
+@mixin box-shadow($dx, $dy, $blur, $shadow)
+  -moz-box-shadow: $dx $dy $blur $shadow
+  -webkit-box-shadow: $dx $dy $blur $shadow
+  box-shadow: $dx $dy $blur $shadow
+
+@mixin border-radius($r)
+  -moz-border-radius: $r
+  -webkit-border-radius: $r
+  border-radius: $r
+
+@mixin border-top-left-radius($r)
+  -moz-border-radius-topleft: $r
+  -webkit-border-top-left-radius: $r
+  border-top-left-radius: $r
+
+@mixin border-bottom-left-radius($r)
+  -moz-border-radius-bottomleft: $r
+  -webkit-border-bottom-left-radius: $r
+  border-bottom-left-radius: $r
+
+@mixin border-top-right-radius($r)
+  -moz-border-radius-topright: $r
+  -webkit-border-top-right-radius: $r
+  border-top-right-radius: $r
+
+@mixin border-bottom-right-radius($r)
+  -moz-border-radius-bottomright: $r
+  -webkit-border-bottom-right-radius: $r
+  border-bottom-right-radius: $r
+
+@mixin user-select($sel)
+  -moz-user-select: $sel
+  -webkit-user-select: $sel
+  user-select: $sel

@@ -1,0 +1,50 @@
+-# coding: utf-8
+!!! 5
+%html
+  %head
+    %meta{charset: 'UTF-8'}
+    %meta{'http-equiv' => 'Content-Type', content: 'text/html; charset=UTF-8'}
+    %title 天気データマップ
+    %meta{name:'viewport', content:'initial-scale=1.0, user-scalable=no'}
+    %link{href:'css/AppM.css', type:'text/css', rel:'stylesheet'}
+
+  %body
+    %div#map.map
+
+    - ['//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',
+       '//maps.google.com/maps/api/js?sensor=false',
+       'js/modernizr.custom.43616.js',
+       'js/jquery.mousewheel.js',
+       'data/DataInfo.js',
+       'js/Places.js',
+       'js/LatLonMap.js',
+       'js/MiscUtils.js',
+       'js/DateExtension.js',
+       'js/DataInfoExtension.js',
+       'js/PrefMobile.js',
+       'js/GoogleMapsDefaults.js',
+       'js/GoogleMapsWidget.js',
+       'js/CsvParser.js',
+       'js/UpdateChecker.js',
+       'js/OptionParser.js',
+       'js/WeatherModel.js',
+       'js/WeatherDecoder.js',
+       'js/WeatherController.js',
+       'js/TrendModel.js',
+       'js/TrendDecoder.js',
+       'js/TrendIterator.js',
+       'js/TrendController.js',
+       'js/GoogleMapsOverlaySvg.js',
+       'js/Presentation.js',
+       'js/GradationDisplay.js',
+       'js/TimeScaleIterator.js',
+       'js/ValueScaleIterator.js',
+       'js/GraphView.js',
+       'js/DataView.js',
+       'js/PlaceInfoView.js',
+       'js/InfoView.js',
+       'js/WeatherControlView.js',
+       'js/PopupInfoView.js',
+       'js/WeatherView.js',
+       'js/App.js'].each do |src|
+      %script{src: src, type: 'text/javascript', charset: 'UTF-8'}

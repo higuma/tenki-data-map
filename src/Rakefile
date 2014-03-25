@@ -1,0 +1,199 @@
+PLATFORMS = [:pc, :mobile]
+
+JS_LIB_FILES = [    # library .js files (should not be merged nor minified)
+  'modernizr.custom.43616',
+  'jquery.mousewheel'
+]
+
+JS_FILES = [        # generated .js files
+  :Places,
+  :LatLonMap
+]
+
+COFFEE_FILES = [    # .coffee files (to be compiled to .js)
+  :MiscUtils,
+  :DateExtension,
+  :DataInfoExtension,
+  { pc:     :PrefPC,
+    mobile: :PrefMobile
+  },
+  :GoogleMapsDefaults,
+  :GoogleMapsWidget,
+  :CsvParser,
+  :UpdateChecker,
+  :OptionParser,
+  :WeatherModel,
+  :WeatherDecoder,
+  :WeatherController,
+  :TrendModel,
+  :TrendDecoder,
+  :TrendIterator,
+  :TrendController,
+  :GoogleMapsOverlaySvg,
+  :Presentation,
+  :GradationDisplay,
+  :TimeScaleIterator,
+  :ValueScaleIterator,
+  :GraphView,
+  :DataView,
+  :PlaceInfoView,
+  :InfoView,
+  :WeatherControlView,
+  :PopupInfoView,
+  :WeatherView,
+  :App
+]
+
+PRODUCT_JS_FILES = {
+  pc:     :AppP,
+  mobile: :AppM
+}
+
+SASS_FILES = [          # .sass files (=> .css)
+  { pc:     :AppP,
+    mobile: :AppM
+  },
+  :SassMixins,
+  :GmwColors,
+  :GoogleMapsWidget,
+  :Style
+]
+
+HAML_DEV_FILES = {      # .haml files for development (=> .html)
+  pc:     :index_p_dev,
+  mobile: :index_m_dev
+}
+
+HAML_PRODUCT_FILES = [  # .haml files for product (=> .html)
+  :index,
+  :index_p,
+  :index_m
+]
+
+# ----------------------------------------------------------------------
+
+require 'rake/clean'
+
+# utilities
+def names_by_platform(files, platform)
+  files.map do |name|
+    name = name[platform] if name.is_a? Hash
+    name.to_s   # convert symbol to string
+  end
+end
+
+def names_to_files(names_array, ext)
+  names_array.map do |name|
+    "#{name}.#{ext}"
+  end
+end
+
+def files_by_platform(files, ext, platform)
+  names_to_files names_by_platform(files, platform), ext
+end
+
+# define file generation rules
+def file_coffee(name)
+  source = "#{name}.coffee"
+  file "#{name}.js" => source do
+    sh "coffee -c #{source}"
+  end
+end
+
+def file_sass(files)
+  sources = names_to_files files, :sass
+  file "#{files[0]}.css" => sources do |t|
+    sh "sass #{sources[0]} #{t.name}"
+  end
+end
+
+def file_haml(name)
+  source = "#{name}.haml"
+  file "#{name}.html" => source do |t|
+    sh "haml #{source} #{t.name}"
+  end
+end
+
+COFFEE_FILES.each do |name|
+  if name.is_a? Hash
+    name.each_value do |n|
+      file_coffee n
+    end
+  else
+    file_coffee name
+  end 
+end
+
+PLATFORMS.each do |platform|
+  file_sass names_by_platform(SASS_FILES, platform)
+end
+
+HAML_DEV_FILES.each_value do |name|
+  file_haml name
+end
+
+HAML_PRODUCT_FILES.each do |name|
+  file_haml name
+end
+
+# define platform-dependent development targets
+PLATFORMS.each do |platform|
+  js_sources = files_by_platform COFFEE_FILES, :js, platform
+  css_file = SASS_FILES[0]
+  css_file = css_file[platform] if css_file.is_a? Hash
+  css_sources = ["#{css_file}.css"]
+  html_sources = ["#{HAML_DEV_FILES[platform]}.html"]
+  sources = js_sources + css_sources + html_sources
+  task platform => sources do
+    sh 'cp *.html ../public'
+    sh 'cp *.css ../public/css/'
+    sh 'cp *.js ../public/js/'
+  end
+  CLEAN.concat sources  # duplicated entries will be removed at last
+end
+
+# define product target
+html_files = names_to_files HAML_PRODUCT_FILES, :html
+task product_html: html_files
+CLEAN.concat html_files
+
+task product_css: PLATFORMS do
+  PLATFORMS.each do |platform|
+    name = "#{SASS_FILES[0][platform]}"
+    sh "sass -t compressed #{name}.sass #{name}.css"
+  end
+end
+
+js_products = PLATFORMS.map do |platform|
+  sources = files_by_platform(COFFEE_FILES, :js, platform)
+  target = "#{PRODUCT_JS_FILES[platform]}.js"
+  js_files = names_to_files JS_FILES, :js
+  file target => sources do
+    files = js_files + sources
+    sh "uglifyjs -m sort #{files.join ' '} > #{target}"
+  end
+  CLEAN << target
+  target
+end
+
+task product_js: js_products
+
+task product: [:product_html, :product_css, :product_js] do
+  sh 'rm -f ../public/*.html'
+  sh 'rm -f ../public/css/*'
+  sh 'rm -f ../public/js/*'
+  files_by_platform(HAML_PRODUCT_FILES, :html, nil).each do |file|
+    sh "cp #{file} ../public"
+  end
+  names_to_files(JS_LIB_FILES, 'js').each do |file|
+    sh "cp #{file} ../public/js"
+  end
+  PLATFORMS.each do |platform|
+    sh "cp #{SASS_FILES[0][platform]}.css ../public/css"
+    sh "cp #{PRODUCT_JS_FILES[platform]}.js ../public/js"
+  end
+end
+
+CLEAN.uniq!     # remove duplication
+
+task default: :product

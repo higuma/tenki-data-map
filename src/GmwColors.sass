@@ -1,0 +1,108 @@
+// Google Maps Widget color definition
+
+// frame (panel)
+$bg-frame: rgb(245, 250, 255)
+
+$frame-bg: rgba($bg-frame, 0.5)
+$frame-bg-shadow: desaturate(darken($frame-bg, 35%), 80%)
+
+// static text (date/time display)
+$bg-static: rgb(255, 254, 252)
+$tx-static: rgb(0, 0, 0)
+
+$static-tx-n: rgba($tx-static, 0.8)           // normal
+$static-tx-g: rgba($tx-static, 0.25)          // grayed
+
+$static-bg-n: rgba($bg-static, 0.8)             // normal
+$static-bg-g: rgba($bg-static, 0.6)             // grayed
+
+// push/radio button (color adjustment)
+$bg-button: desaturate(darken(rgb(255, 254, 252), 3%), 60%)
+$bg-button-dark: darken(rgb(228, 225, 218), 2%)
+$bg-button-hi: rgb(255, 239, 206)
+$bg-button-pr:      desaturate(darken($bg-button, 16%), 30%)
+$bg-button-pr-dark: desaturate(darken($bg-button-dark, 12%), 20%)
+$bg-button-pr-hi:   desaturate(darken($bg-button-hi, 30%), 50%)
+$bd-button: rgb(0, 0, 0)
+$bd-button-pr: darken($bg-button-hi, 50%)
+$tx-button: rgb(0, 0, 0)
+$tx-button-hover: lighten($tx-button, 20%)
+$tx-button-pr: rgb(255, 255, 255)
+
+// push button
+$button-bg-r-n:   rgba($bg-button, 0.8)         // regular, normal
+$button-bg-r-n-e: desaturate(darken($button-bg-r-n, 4%), 95%)
+$button-bg-r-h:   lighten($button-bg-r-n, 6%)   // regular, hover
+$button-bg-r-h-e: lighten($button-bg-r-n-e, 6%)
+$button-bg-r-g:   rgba($bg-button, 0.3)         // regular, grayed
+$button-bg-r-g-e: desaturate(darken($button-bg-r-g, 4%), 95%)
+$button-bg-r-p:   rgba($bg-button-pr, 0.8)      // regular, pressed
+$button-bg-r-p-e: desaturate(darken($button-bg-r-p, 4%), 95%)
+$button-bg-h-n:   rgba($bg-button-hi, 0.8)      // highlight, normal
+$button-bg-h-n-e: desaturate(darken($button-bg-h-n, 3%), 70%)
+$button-bg-h-h:   lighten($bg-button-hi, 4%)    // highlight, hover
+$button-bg-h-h-e: desaturate(darken($button-bg-h-h, 3%), 70%)
+$button-bg-h-g:   rgba($bg-button-hi, 0.3)      // highlight, grayed
+$button-bg-h-g-e: desaturate(darken($button-bg-h-g, 3%), 70%)
+$button-bg-h-p:  rgba($bg-button-pr-hi, 0.8)    // highlight, pressed
+$button-bg-h-p-e: desaturate(darken($button-bg-h-p, 2%), 10%)
+
+$button-bd-r-n: rgba($bd-button, 0.25)          // regular, normal
+$button-bd-r-h: lighten($bd-button, 7%)         // regular, hover
+$button-bd-r-g: rgba($bd-button, 0.1)           // regular, grayed
+$button-bd-r-p: rgba($bd-button-pr, 0.8)        // regular, pressed
+$button-bd-h-n: $button-bd-r-n                  // highlight, normal
+$button-bd-h-h: $button-bd-r-h                  // highlight, hover
+$button-bd-h-g: $button-bd-r-g                  // highlight, grayed
+$button-bd-h-p: $button-bd-r-p                  // highlight, pressed
+
+$button-tx-r-n: rgba($tx-button, 0.8)           // regular, normal
+$button-tx-r-h: rgba($tx-button-hover, 0.8)     // regular, hover
+$button-tx-r-g: rgba($tx-button, 0.25)          // regular, grayed
+$button-tx-r-p: rgba($tx-button-pr, 0.8)        // regular, pressed
+$button-tx-h-n: $button-tx-r-n                  // highlight, normal
+$button-tx-h-h: $button-tx-r-h                  // highlight, hover
+$button-tx-h-g: $button-tx-r-g                  // highlight, grayed
+$button-tx-h-p: $button-tx-r-p                  // highlight, pressed
+
+// radio button
+$radio-bg-r-n:   rgba($bg-button-dark, 0.8)     // regular, normal
+$radio-bg-r-n-e: desaturate(darken($radio-bg-r-n, 4%), 30%)
+$radio-bg-r-h:   lighten($radio-bg-r-n, 7%)     // regular, hover
+$radio-bg-r-h-e: lighten($radio-bg-r-n-e, 7%)
+$radio-bg-r-g:   rgba($bg-button-dark, 0.3)     // regular, grayed
+$radio-bg-r-g-e: desaturate(darken($radio-bg-r-g, 4%), 30%)
+$radio-bg-r-p:   rgba($bg-button-pr-dark, 0.8)  // regular, pressed
+$radio-bg-r-p-e: desaturate(darken($radio-bg-r-p, 4%), 95%)
+$radio-bg-h-n:   $button-bg-h-n                 // highlight, normal
+$radio-bg-h-n-e: $button-bg-h-n-e
+$radio-bg-h-h:   $button-bg-h-h                 // highlight, hover
+$radio-bg-h-h-e: $button-bg-h-h-e
+$radio-bg-h-g:   $button-bg-h-g                 // highlight, grayed
+$radio-bg-h-g-e: $button-bg-h-g-e
+$radio-bg-h-p:   $button-bg-h-p                 // highlight, pressed
+$radio-bg-h-p-e: $button-bg-h-p-e
+
+$radio-bd-r-n: $button-bd-r-n                   // regular, normal
+$radio-bd-r-h: $button-bd-r-h                   // regular, hover
+$radio-bd-r-g: $button-bd-r-g                   // regular, grayed
+$radio-bd-r-p: $button-bd-r-p                   // regular, pressed
+$radio-bd-h-n: $button-bd-h-n                   // highlight, normal
+$radio-bd-h-h: $button-bd-h-h                   // highlight, hover
+$radio-bd-h-g: $button-bd-h-g                   // highlight, grayed
+$radio-bd-h-p: $button-bd-h-p                   // highlight, pressed
+
+$radio-tx-r-n: $button-tx-r-n                   // regular, normal
+$radio-tx-r-h: $button-tx-r-h                   // regular, hover
+$radio-tx-r-g: $button-tx-r-g                   // regular, grayed
+$radio-tx-r-p: $button-tx-r-p                   // regular, pressed
+$radio-tx-h-n: $button-tx-h-n                   // highlight, normal
+$radio-tx-h-h: $button-tx-h-h                   // highlight, hover
+$radio-tx-h-g: $button-tx-h-g                   // highlight, grayed
+$radio-tx-h-p: $button-tx-h-p                   // highlight, pressed
+
+// table
+$table-tx: $static-tx-n
+$table-bg: $static-bg-n
+$table-bg-h: $button-bg-h-n
+$table-th-bg: transparentize($radio-bg-r-n, 0.5)

@@ -1,0 +1,331 @@
+@import 'SassMixins'
+@import 'GmwColors'
+
+$frame-radius: 7px
+$widget-radius: 3px
+$widget-padding: 4px
+
+// mixins for widgets
+@mixin widget-round
+  @include border-radius($widget-radius)
+
+@mixin widget-round-l
+  @include border-top-left-radius($widget-radius)
+  @include border-bottom-left-radius($widget-radius)
+
+@mixin widget-round-r
+  @include border-top-right-radius($widget-radius)
+  @include border-bottom-right-radius($widget-radius)
+
+@mixin widget-gradient($face, $edge)
+  background: $face
+  background: -moz-linear-gradient($edge, $face, $edge)
+  background: -webkit-linear-gradient($edge, $face, $edge)
+  background: linear-gradient($edge, $face, $edge)
+
+// frame and row
+div.gmw-frame
+  background: $frame-bg
+  @include box-shadow(1px, 1px, 2px, $frame-bg-shadow)
+  @include border-bottom-left-radius($frame-radius)
+  @include border-bottom-right-radius($frame-radius)
+  padding: 2px 3px 2px 3px
+
+div.gmw-subframe
+  border: 0px
+  padding: 0px
+
+div.gmw-row
+  margin: 4px 2px 4px 3px
+  width: 100%
+
+div.gmw-subrow
+  margin: 7px 2px 7px 3px
+  width: 100%
+
+div.gmw-hr
+  margin: 5px 0px
+  width: 100%
+  height: 1px
+  background-color: $button-bd-r-g
+
+// spacer
+@for $i from 0 through 20
+  span.gmw-spacer-#{$i}
+    padding: 0px
+    margin: 0px #{$i}px
+
+// text
+span.gmw-text
+  font-family: Arial, sans-serif
+  font-size: 12px
+
+// static (display) text
+@mixin gmw-static
+  font-family: Arial, sans-serif
+  font-size: $static-font-size
+  @include widget-round
+  padding: 1px 4px
+  margin: 0px 1px 0px 0px
+
+span.gmw-static-n       // normal
+  @include gmw-static
+  color: $static-tx-n
+  background: $static-bg-n
+
+span.gmw-static-g       // grayed
+  @include gmw-static
+  color: $static-tx-g
+  background: $static-bg-g
+
+// button
+@mixin gmw-button-base
+  font-family: Arial, sans-serif
+  font-size: 12px
+  text-align: center
+  @include user-select(none)
+  border-style: solid
+  border-width: 1px
+  padding: 1px $widget-padding
+
+@mixin gmw-button
+  @include gmw-button-base
+  @include widget-round
+  margin: 0px 1px 0px 0px
+
+@mixin gmw-button-n
+  @include gmw-button
+  cursor: pointer
+
+@mixin gmw-button-g
+  @include gmw-button
+  cursor: default
+
+span.gmw-button-r-n     // regular, normal
+  @include gmw-button-n
+  color: $button-tx-r-n
+  @include widget-gradient($button-bg-r-n, $button-bg-r-n-e)
+  border-color: $button-bd-r-n
+  &:hover
+    color: $button-tx-r-h
+    @include widget-gradient($button-bg-r-h, $button-bg-r-h-e)
+    border-color: $button-bd-r-h
+
+span.gmw-button-r-g     // regular, grayed
+  @include gmw-button-g
+  color: $button-tx-r-g
+  @include widget-gradient($button-bg-r-g, $button-bg-r-g-e)
+  border-color: $button-bd-r-g
+
+span.gmw-button-r-p     // regular, pressed
+  @include gmw-button-n
+  color: $button-tx-r-p
+  @include widget-gradient($button-bg-r-p, $button-bg-r-p-e)
+  border-color: $button-bd-r-p
+
+span.gmw-button-h-n     // highlighted, normal
+  @include gmw-button-n
+  color: $button-tx-h-n
+  @include widget-gradient($button-bg-h-n, $button-bg-h-n-e)
+  border-color: $button-bd-h-n
+  &:hover
+    color: $button-tx-h-h
+    @include widget-gradient($button-bg-h-h, $button-bg-h-h-e)
+    border-color: $button-bd-h-h
+
+span.gmw-button-h-g     // highlighted, grayed
+  @include gmw-button-g
+  color: $button-tx-h-g
+  @include widget-gradient($button-bg-h-g, $button-bg-h-g-e)
+  border-color: $button-bd-h-g
+
+span.gmw-button-h-p     // highlighted, pressed
+  @include gmw-button-n
+  color: $button-tx-h-p
+  @include widget-gradient($button-bg-h-p, $button-bg-h-p-e)
+  border-color: $button-bd-h-p
+
+// radio button
+@mixin gmw-radio
+  @include gmw-button-base
+  margin: 0px -1px 0px 0px
+
+@mixin gmw-radio-n
+  @include gmw-radio
+  cursor: pointer
+
+@mixin gmw-radio-g
+  @include gmw-radio
+  cursor: default
+
+@mixin gmw-radio-r-n    // regular, normal
+  @include gmw-radio-n
+  color: $radio-tx-r-n
+  @include widget-gradient($radio-bg-r-n, $radio-bg-r-n-e)
+  border-color: $radio-bd-r-n
+
+@mixin gmw-radio-r-h    // regular, hover
+  color: $radio-tx-r-h
+  @include widget-gradient($radio-bg-r-h, $radio-bg-r-h-e)
+  border-color: $radio-bd-r-h
+
+@mixin gmw-radio-r-g    // regular, grayed
+  @include gmw-radio-g
+  color: $radio-tx-r-g
+  @include widget-gradient($radio-bg-r-g, $radio-bg-r-g-e)
+  border-color: $radio-bd-r-g
+
+@mixin gmw-radio-r-p    // regular, pressed
+  @include gmw-radio-n
+  color: $radio-tx-r-p
+  @include widget-gradient($radio-bg-r-p, $radio-bg-r-p-e)
+  border-color: $radio-bd-r-p
+
+@mixin gmw-radio-h-n    // highlighted, normal
+  @include gmw-radio-n
+  color: $radio-tx-h-n
+  @include widget-gradient($radio-bg-h-n, $radio-bg-h-n-e)
+  border-color: $radio-bd-h-n
+
+@mixin gmw-radio-h-h    // highlighted, hover
+  color: $radio-tx-h-h
+  @include widget-gradient($radio-bg-h-h, $radio-bg-h-h-e)
+  border-color: $radio-bd-h-h
+
+@mixin gmw-radio-h-g    // highlighted, grayed
+  @include gmw-radio-g
+  color: $radio-tx-h-g
+  @include widget-gradient($radio-bg-h-g, $radio-bg-h-g-e)
+  border-color: $radio-bd-h-g
+
+@mixin gmw-radio-h-p    // highlighted, pressed
+  @include gmw-radio-n
+  color: $radio-tx-h-p
+  @include widget-gradient($radio-bg-h-p, $radio-bg-h-p-e)
+  border-color: $radio-bd-h-p
+
+span.gmw-radio-m-r-n    // middle, regular, normal
+  @include gmw-radio-r-n
+  &:hover
+    @include gmw-radio-r-h
+
+span.gmw-radio-m-r-g    // middle, regular, grayed
+  @include gmw-radio-r-g
+
+span.gmw-radio-m-r-p    // middle, regular, pressed
+  @include gmw-radio-r-p
+
+span.gmw-radio-m-h-n    // middle, highlighted, normal
+  @include gmw-radio-h-n
+  &:hover
+    @include gmw-radio-h-h
+
+span.gmw-radio-m-h-g    // middle, highlighted, grayed
+  @include gmw-radio-h-g
+
+span.gmw-radio-m-h-p    // middle, highlighted, pressed
+  @include gmw-radio-h-p
+
+span.gmw-radio-l-r-n    // left, regular, normal
+  @include gmw-radio-r-n
+  @include widget-round-l
+  &:hover
+    @include gmw-radio-r-h
+
+span.gmw-radio-l-r-g    // left, regular, grayed
+  @include gmw-radio-r-g
+  @include widget-round-l
+
+span.gmw-radio-l-r-p    // left, regular, pressed
+  @include gmw-radio-r-p
+  @include widget-round-l
+
+span.gmw-radio-l-h-n    // left, highlighted, normal
+  @include gmw-radio-h-n
+  @include widget-round-l
+  &:hover
+    @include gmw-radio-h-h
+
+span.gmw-radio-l-h-g    // left, highlighted, grayed
+  @include gmw-radio-h-g
+  @include widget-round-l
+
+span.gmw-radio-l-h-p    // left, highlighted, pressed
+  @include gmw-radio-h-p
+  @include widget-round-l
+
+span.gmw-radio-r-r-n    // right, regular, normal
+  @include gmw-radio-r-n
+  @include widget-round-r
+  &:hover
+    @include gmw-radio-r-h
+
+span.gmw-radio-r-r-g    // right, regular, grayed
+  @include gmw-radio-r-g
+  @include widget-round-r
+
+span.gmw-radio-r-r-p    // right, regular, pressed
+  @include gmw-radio-r-p
+  @include widget-round-r
+
+span.gmw-radio-r-h-n    // right, highlighted, normal
+  @include gmw-radio-h-n
+  @include widget-round-r
+  &:hover
+    @include gmw-radio-h-h
+
+span.gmw-radio-r-h-g    // right, highlighted, grayed
+  @include gmw-radio-h-g
+  @include widget-round-r
+
+span.gmw-radio-r-h-p    // right, highlighted, pressed
+  @include gmw-radio-h-p
+  @include widget-round-r
+
+// select
+select.gmw-select
+  font-family: Arial, sans-serif
+  font-size: 12px
+  margin: 0px 1px 0px 0px
+
+// table elements
+table.gmw-table
+  font-family: Arial, sans-serif
+  font-size: 12px
+  border-spacing: 1px
+
+tbody.gmw-tbody
+  color: $table-tx
+  background: $table-bg
+
+th.gmw-th
+  background: $table-th-bg
+  font-weight: normal
+  padding: 1px 5px
+
+td.gmw-tdl
+  padding: 1px 5px
+  text-align: left
+
+td.gmw-tdc
+  padding: 1px 5px
+  text-align: center
+
+td.gmw-tdr
+  padding: 1px 5px
+  text-align: right
+
+td.gmw-tdl-h
+  padding: 1px 5px
+  text-align: left
+  background: $table-bg-h
+
+td.gmw-tdc-h
+  padding: 1px 5px
+  text-align: center
+  background: $table-bg-h
+
+td.gmw-tdr-h
+  padding: 1px 5px
+  text-align: right
+  background: $table-bg-h

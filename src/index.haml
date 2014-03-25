@@ -1,0 +1,25 @@
+-# coding: utf-8
+!!! 5
+%html
+  %head
+    %meta{charset:'UTF-8'}
+    %meta{'http-equiv' => 'Content-Type', content:'text/html; charset=UTF-8'}
+    %title 天気データマップ
+
+  %body
+    %div#map.map
+
+    - ['//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',
+       '//maps.google.com/maps/api/js?sensor=false',
+       'js/modernizr.custom.43616.js',
+       'js/jquery.mousewheel.js',
+       'data/DataInfo.js'].each do |src|
+      %script{src:src, type:'text/javascript', charset:'UTF-8'}
+
+    :javascript
+      var ua = navigator.userAgent;
+      Modernizr.load({
+        load: ua.indexOf('iPhone') != -1 || ua.indexOf('Android') != -1 ?
+          ["css/AppM.css", "js/AppM.js"] :
+          ["css/AppP.css", "js/AppP.js"]
+      });

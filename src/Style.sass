@@ -1,0 +1,173 @@
+// base settings
+html
+  height: 100%
+
+body
+  height: 100%
+  margin: 0px
+  padding: 0px
+
+.map
+  height: 100%
+
+// fallback content
+div.tenki-alert
+  background: $bg-frame
+  background: rgba($bg-frame, 0.75)
+  @include border-radius(5px)
+  @include box-shadow(1px, 1px, 2px, $frame-bg-shadow)
+  font-family: Arial, sans-serif
+  font-size: 12px
+  width: 400px
+  height: 60px
+  padding: 12px
+
+// control panel
+a.noDeco
+  color: rgba(50, 50, 50, 0.8)
+  text-decoration: none
+
+div#tenkiGradation
+  float: left
+
+div#tenkiLinks
+  font-size: 10px
+  float: right
+
+div.topRight
+  float: right
+  margin-top: 2px
+  margin-right: 6px
+
+// popup view
+div.popupInfo
+  background: rgba($bg-frame, 0.75)
+  @include border-radius(5px)
+  @include box-shadow(1px, 1px, 2px, $frame-bg-shadow)
+  font-family: Arial, sans-serif
+  font-size: 11px
+  width: 160px
+  height: 186px
+  position: absolute
+
+span.popupPlaceName
+  font-size: 13px
+  position: absolute
+  left: 5px
+  top: 4px
+
+span.popupCaption
+  position: absolute
+  left: 5px
+
+span.popupValue
+  position: absolute
+  left: 80px
+
+// graph view (SVG)
+svg.graph
+  background: $static-bg-g
+
+rect.graphBG
+  fill: $static-bg-n
+
+@mixin graph-label
+  font-family: Arial, sans-serif
+  font-size: 10px
+  fill: black
+  @include user-select(none)
+
+text.graphLabelT
+  @include graph-label
+  text-anchor: middle
+  dominant-baseline: text-after-edge
+
+text.graphLabelB
+  @include graph-label
+  text-anchor: middle
+  dominant-baseline: text-before-edge
+
+text.graphLabelL
+  @include graph-label
+  text-anchor: end
+  dominant-baseline: middle
+
+text.graphLabelR
+  @include graph-label
+  text-anchor: start
+  dominant-baseline: middle
+
+line.graphHidden
+  stroke: none
+
+@mixin graph-shape
+  stroke-linecap: square
+  shape-rendering: crispEdges
+
+line.graphScale
+  @include graph-shape
+  stroke: rgba(0, 0, 0, 0.2)
+  stroke-width: 1
+
+line.graphSubscale
+  @include graph-shape
+  stroke: rgba(0, 0, 0, 0.05)
+  stroke-width: 1
+
+path.graphPathT
+  @include graph-shape
+  stroke: rgb(255, 150, 100)
+  fill: rgb(255, 150, 100)
+  stroke-width: 3
+
+path.graphPathP
+  @include graph-shape
+  stroke: rgba(100, 150, 255, 0.5)
+  fill: rgba(100, 150, 255, 0.2)
+  stroke-width: 1
+
+path.graphPathW
+  @include graph-shape
+  stroke: rgba(50, 120, 80, 0.5)
+  fill: rgba(50, 120, 80, 0.2)
+  stroke-width: 1
+
+path.graphPathS
+  @include graph-shape
+  stroke: rgba(220, 180, 100, 0.8)
+  fill: rgba(220, 180, 100, 0.4)
+  stroke-width: 1
+
+path.graphPathF
+  @include graph-shape
+  stroke: rgba(140, 150, 160, 0.5)
+  fill: rgba(140, 150, 160, 0.2)
+  stroke-width: 1
+
+path.graphPathD
+  @include graph-shape
+  stroke: rgba(140, 150, 160, 0.5)
+  fill: rgba(140, 150, 160, 0.2)
+  stroke-width: 1
+
+line.graphMarker
+  @include graph-shape
+  stroke: rgba(255, 0, 0, 0.75)
+  stroke-width: 1
+
+rect.graphMousePane
+  stroke: none
+  fill: none
+  pointer-events: all
+
+rect.graphMsgBox
+  stroke: rgba(210, 207, 202, 0.6)
+  fill: rgba(240, 238, 235, 0.6)
+  stroke-width: 1
+
+text.graphMsgText
+  font-family: Arial, sans-serif
+  font-size: 14px
+  fill: rgba(0, 0, 0, 0.6)
+  text-anchor: middle
+  dominant-baseline: middle
