@@ -1,0 +1,10 @@
+{
+  "name": "temki-data-map",
+  "version": "1.0.0",
+  "description": "Weather data map of Japan",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT"
+}

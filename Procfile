@@ -1,1 +1,1 @@
-web: bundle exec rackup --server thin --port $PORT
+web: node web.js

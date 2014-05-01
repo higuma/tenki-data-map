@@ -5,11 +5,6 @@ JS_LIB_FILES = [    # library .js files (should not be merged nor minified)
   'jquery.mousewheel'
 ]
 
-JS_FILES = [        # generated .js files
-  :Places,
-  :LatLonMap
-]
-
 COFFEE_FILES = [    # .coffee files (to be compiled to .js)
   :MiscUtils,
   :DateExtension,
@@ -73,6 +68,7 @@ HAML_PRODUCT_FILES = [  # .haml files for product (=> .html)
 # ----------------------------------------------------------------------
 
 require 'rake/clean'
+require 'zlib'
 
 # utilities
 def names_by_platform(files, platform)
@@ -90,6 +86,16 @@ end
 
 def files_by_platform(files, ext, platform)
   names_to_files names_by_platform(files, platform), ext
+end
+
+def convert_gz(path)
+  puts "#{path} => #{path}.gz"
+  open path, 'r:BINARY' do |f|
+    Zlib::GzipWriter.open path + '.gz', Zlib::BEST_COMPRESSION do |gz|
+      gz.write f.read
+    end
+  end
+  File.delete path
 end
 
 # define file generation rules
@@ -167,10 +173,8 @@ end
 js_products = PLATFORMS.map do |platform|
   sources = files_by_platform(COFFEE_FILES, :js, platform)
   target = "#{PRODUCT_JS_FILES[platform]}.js"
-  js_files = names_to_files JS_FILES, :js
   file target => sources do
-    files = js_files + sources
-    sh "uglifyjs -m sort #{files.join ' '} > #{target}"
+    sh "uglifyjs -m sort #{sources.join ' '} > #{target}"
   end
   CLEAN << target
   target
@@ -184,13 +188,19 @@ task product: [:product_html, :product_css, :product_js] do
   sh 'rm -f ../public/js/*'
   files_by_platform(HAML_PRODUCT_FILES, :html, nil).each do |file|
     sh "cp #{file} ../public"
+    convert_gz "../public/#{file}"
   end
   names_to_files(JS_LIB_FILES, 'js').each do |file|
     sh "cp #{file} ../public/js"
+    convert_gz "../public/js/#{file}"
   end
   PLATFORMS.each do |platform|
-    sh "cp #{SASS_FILES[0][platform]}.css ../public/css"
-    sh "cp #{PRODUCT_JS_FILES[platform]}.js ../public/js"
+    css_file = "#{SASS_FILES[0][platform]}.css"
+    sh "cp #{css_file} ../public/css"
+    convert_gz "../public/css/#{css_file}"
+    js_file = "#{PRODUCT_JS_FILES[platform]}.js"
+    sh "cp #{js_file} ../public/js"
+    convert_gz "../public/js/#{js_file}"
   end
 end
 

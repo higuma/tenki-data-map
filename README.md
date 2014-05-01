@@ -1,12 +1,12 @@
 # 天気データマップ
 
-天気データマップは気象庁にある日本の過去の天気情報をGoogleマップ上に表示するWebアプリケーションです。デモアプリケーションは次のリンクにあります。
+天気データマップは気象庁にある日本の過去の天気情報をGoogleマップ上に表示するWebアプリケーションです。次のURLからお入り下さい。
 
-> HTML5対応ブラウザで動作します(詳しくは本ドキュメント後半の「対応ブラウザ」をご覧下さい)。なお本アプリケーションはMITライセンスで、使用に対する一切の保証はいたしかねます。
+> HTML5対応ブラウザで動作します(詳しくは本ドキュメント後半の「対応ブラウザ」をご覧下さい)。またライセンスについては「ソフトウエアについて」をご覧下さい。
 
-* [天気データマップ 2011-2014春](http://tenki-data-map.herokuapp.com)
+* [天気データマップ 2011-2014](http://tenki-data-map.herokuapp.com)
 
-> デモアプリケーションはサーバ容量の制約からデータの期間が2011年1月1日から最終更新日の前日までに制限されています。
+> 公開版アプリケーションはサーバ容量の制約からデータの期間が2011年1月1日から最終更新日の前日までとなっています。それ以前の気象庁の全データはGitHubリポジトリにあります。
 
 ## アプリケーションの説明
 
@@ -111,31 +111,7 @@ IE9で次の問題を確認しています(最初の項目は重要ですからI
 
 ## ソフトウエアについて
 
-本アプリケーションはフリーソフトウエアです。作者によるソフトウエアコードはMITライセンスに準拠します。
-
-```
-The MIT License (MIT)
-
-Copyright (c) 2014 Yuji Miyane
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-```
+本アプリケーションはフリーソフトウエアです。作者によるソフトウエアコードはMITライセンスに準拠します(See [LICENCE.txt](LICENCE.txt))。
 
 * [MIT Licence (参考和訳)](http://sourceforge.jp/projects/opensource/wiki/licenses%2FMIT_license)
 
@@ -149,9 +125,9 @@ THE SOFTWARE.
 * [jQuery Mousewheel][]
 * [Modernizr][]
 
-コードは[CoffeeScript][]で記述しており、コンパイルには[node.js][]の環境が必要です。
+コードは[CoffeeScript][]で記述しており、コンパイルには[node.js][]の環境が必要です。またHTML生成は[Haml][]、CSS生成は[Sass][]、ファイル生成管理は[Rake][]を用いています。これらは[Ruby] 1.9以上の環境で動作します。
 
-HTML生成は[Haml][]、CSS生成は[Sass][]、ファイル生成管理は[Rake][]、サーバサイドのインターフェースに[Rack][]を用いています。これらは[Ruby] 1.9以上の環境で動作します。
+サーバサイドのコードはnode.jsで書かれています。
 
 [CoffeeScript]: http://coffeescript.org/ "CoffeeScript"
 [Google Maps API]: https://developers.google.com/maps/?hl=ja "Google Maps API"
@@ -160,7 +136,6 @@ HTML生成は[Haml][]、CSS生成は[Sass][]、ファイル生成管理は[Rake]
 [jQuery Mousewheel]: http://plugins.jquery.com/mousewheel/ "jQuery Mousewheel"
 [Modernizr]: http://modernizr.com/ "Modernizr"
 [node.js]: http://nodejs.org/ "node.js"
-[Rack]: http://rack.github.io/ "Rack: a Ruby Webserver Interface"
 [Rake]: http://rake.rubyforge.org/ "Rake - Ruby Make"
 [Ruby]: http://www.ruby-lang.org/ "Ruby Programming Language"
 [Sass]: http://sass-lang.com/ "Sass: Syntactically Awesome Style Sheets"
@@ -179,22 +154,7 @@ HTML生成は[Haml][]、CSS生成は[Sass][]、ファイル生成管理は[Rake]
 
 > 初版公開時のデータから意図的に更新していません(リポジトリ肥大化を防止するため)。最新データが必要な方は本節の最後の部分をお読みになり、最新データをダウンロードして下さい。
 
-本リポジトリはそのままローカルサーバとして起動できます。起動には次の環境が必要です。
-
-* [Ruby][] (1.9以上 - 1.9.3と2.0.0で動作確認済み)
-* [Rack][]
-
-[Rack]: http://rack.github.io/ "Rack: a Ruby Webserver Interface"
-[Ruby]: http://www.ruby-lang.org/ "Ruby Programming Language"
-
-`config.ru`があるディレクトリで`rackup`を起動するとローカルサーバが立ち上がります。起動例を示します。起動後にブラウザで`localhost:9292`にアクセスすればブラウザ上でアプリケーションを実行できます。
-
-```
-$ rackup
-[2014-04-03 18:39:30] INFO  WEBrick 1.3.1
-[2014-04-03 18:39:30] INFO  ruby 2.0.0 (2013-06-27) [i686-linux]
-[2014-04-03 18:39:30] INFO  WEBrick::HTTPServer#start: pid=12743 port=9292
-```
+本リポジトリはそのままローカルサーバとして起動できます。node.jsが動作する環境で`web.js`を実行すればサーバが立ち上がります。
 
 1882年から現在までの全データは約2.6GBになります。全データは次のリンクからダウンロードできます。インストール方法やデータに関する詳細なども一緒に書いてありますのでご確認下さい。
 
