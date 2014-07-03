@@ -24,7 +24,7 @@ class GoogleMapsOverlaySvg extends google.maps.OverlayView
     @div.appendChild @svg
     overlayDiv = @getPanes().overlayLayer
     overlayDiv.appendChild @div
-    @dragDiv = overlayDiv.parentNode.parentNode
+    @dragDiv = overlayDiv.parentNode
 
     canvas = document.getElementById @canvasId
     canvas.onclick = (event) => @click event

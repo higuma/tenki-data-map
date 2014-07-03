@@ -31,18 +31,30 @@ serveGzFile = (res, url, gzipSupported) ->
   # console.log url
   mime = MimeType[path.extname(url).substr(1)] || 'text/plain'
   url = RootPath + url
-  stream = fs.createReadStream url + '.gz'
-  stream.on 'error', (err) ->
-    serveFile res, url, mime
-    return
+  urlGz = url + '.gz'
   headers = 'Content-Type': mime
   if gzipSupported
+    stream = fs.createReadStream urlGz
+    stream.on 'error', (err) ->
+      serveFile res, url, mime
+      return
     headers['Content-Encoding'] = 'gzip'
     res.writeHead 200, headers
     stream.pipe res
   else
-    res.writeHead headers
-    stream.pipe(zlib.createUnzip()).pipe(res)
+    fs.readFile urlGz, (err, data) ->
+      if err?
+        serveFile res, url, mime
+      else
+        zlib.gunzip data, (err, result) ->
+          if err?
+            errRes = ErrorResponse.DEFAULT      # 500: internal server error
+            res.writeHead errRes[0], 'Content-Type': 'text/plain'
+            res.end "#{errRes[0]} #{errRes[1]}"
+          else
+            res.writeHead 200, headers
+            res.end result
+      return
   return
 
 server = http.createServer (request, res) ->
@@ -52,4 +64,6 @@ server = http.createServer (request, res) ->
   serveGzFile res, url, enc? && enc.indexOf('gzip') != -1
   return
 
-server.listen Number(process.env.PORT || 8888)
+port = Number(process.env.PORT || 8888)
+server.listen port
+# console.log "listening on port #{port}"
