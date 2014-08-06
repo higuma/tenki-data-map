@@ -55,7 +55,7 @@ class GoogleMapsOverlaySvg extends google.maps.OverlayView
   onMouseMove: (point) -> # override
 
   convertMouseCoord: (event) ->   # returns [point, latLon]
-    wkTrans= @dragDiv.style['-webkit-transform']
+    wkTrans= @dragDiv.style['transform']
     if wkTrans? && (re = wkTrans.match RE_MATRIX)?
       dx = parseInt re[1]
       dy = parseInt re[2]
