@@ -88,16 +88,6 @@ def files_by_platform(files, ext, platform)
   names_to_files names_by_platform(files, platform), ext
 end
 
-def convert_gz(path)
-  puts "#{path} => #{path}.gz"
-  open path, 'r:BINARY' do |f|
-    Zlib::GzipWriter.open path + '.gz', Zlib::BEST_COMPRESSION do |gz|
-      gz.write f.read
-    end
-  end
-  File.delete path
-end
-
 # define file generation rules
 def file_coffee(name)
   source = "#{name}.coffee"
@@ -188,19 +178,15 @@ task product: [:product_html, :product_css, :product_js] do
   sh 'rm -f ../public/js/*'
   files_by_platform(HAML_PRODUCT_FILES, :html, nil).each do |file|
     sh "cp #{file} ../public"
-    convert_gz "../public/#{file}"
   end
   names_to_files(JS_LIB_FILES, 'js').each do |file|
     sh "cp #{file} ../public/js"
-    convert_gz "../public/js/#{file}"
   end
   PLATFORMS.each do |platform|
     css_file = "#{SASS_FILES[0][platform]}.css"
     sh "cp #{css_file} ../public/css"
-    convert_gz "../public/css/#{css_file}"
     js_file = "#{PRODUCT_JS_FILES[platform]}.js"
     sh "cp #{js_file} ../public/js"
-    convert_gz "../public/js/#{js_file}"
   end
 end
 
