@@ -66,4 +66,4 @@ server = http.createServer (request, res) ->
 
 port = Number(process.env.PORT || 8888)
 server.listen port
-# console.log "listening on port #{port}"
+console.log "listening on port #{port}"
