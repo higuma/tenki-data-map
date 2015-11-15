@@ -1,12 +1,10 @@
-# 天気データマップ
+# [天気データマップ](http://higuma.boo.jp/tenki-data-map/)
 
-天気データマップは気象庁にある日本の過去の天気情報をGoogleマップ上に表示するWebアプリケーションです。次のURLからお入り下さい。
+天気データマップは気象庁にある日本の過去の天気情報をGoogleマップ上に表示するWebアプリケーションです。次のURLで公開しています。HTML5対応ブラウザで動作します(詳しくは本ドキュメント後半の「対応ブラウザ」をご覧下さい)。
 
-> HTML5対応ブラウザで動作します(詳しくは本ドキュメント後半の「対応ブラウザ」をご覧下さい)。またライセンスについては「ソフトウエアについて」をご覧下さい。
+<http://higuma.boo.jp/tenki-data-map/>
 
-* [天気データマップ 2011-2014](http://higuma.github.io/tenki-data-map/)
-
-> 公開版アプリケーションはサーバ容量の制約からデータの期間が2011年1月1日から最終更新日の前日までとなっています。それ以前の気象庁の全データはGitHubリポジトリにあります。
+> 過去天気の履歴を表示するアプリケーションです(本日の天気は表示できません)。最新情報はサイト管理者(作者本人)の最終データ更新作業日の前日になります。なるべく毎日更新していますが、都合により数日間更新されない場合もありますのでご了承下さい。
 
 ## アプリケーションの説明
 
@@ -115,30 +113,17 @@ IE9で次の問題を確認しています(最初の項目は重要ですからI
 
 * [MIT Licence (参考和訳)](http://sourceforge.jp/projects/opensource/wiki/licenses%2FMIT_license)
 
-本アプリケーションは[Google Maps API][]を利用しています。Googleのライセンス方針は次をご覧下さい。
+本アプリケーションは[Google Maps API](https://developers.google.com/maps/)を利用しています。Googleのライセンス方針は次をご覧下さい。
 
 * [Google Maps APIのライセンス](https://developers.google.com/maps/licensing?hl=ja)
 
-本ソフトウエアのソースコードとデータをgithubで公開します(本リポジトリ)。次のJavaScriptライブラリを利用しています。
+ソフトウエアのソースコードとテストデータを本GitHubリポジトリで公開します。詳しくは次をご覧下さい。
 
-* [jQuery][]
-* [jQuery Mousewheel][]
-* [Modernizr][]
+* [開発者用ドキュメント(補足)](devdoc.md)
 
-コードは[CoffeeScript][]で記述しており、コンパイルには[node.js][]の環境が必要です。またHTML生成は[Haml][]、CSS生成は[Sass][]、ファイル生成管理は[Rake][]を用いています。これらは[Ruby] 1.9以上の環境で動作します。
-
-サーバサイドのコードはnode.jsで書かれています。
-
-[CoffeeScript]: http://coffeescript.org/ "CoffeeScript"
-[Google Maps API]: https://developers.google.com/maps/?hl=ja "Google Maps API"
-[Haml]: http://haml.info/ "Haml (HTML abstraction markup language)"
-[jQuery]: http://jquery.com/ "jQuery"
-[jQuery Mousewheel]: http://plugins.jquery.com/mousewheel/ "jQuery Mousewheel"
-[Modernizr]: http://modernizr.com/ "Modernizr"
-[node.js]: http://nodejs.org/ "node.js"
-[Rake]: http://rake.rubyforge.org/ "Rake - Ruby Make"
-[Ruby]: http://www.ruby-lang.org/ "Ruby Programming Language"
-[Sass]: http://sass-lang.com/ "Sass: Syntactically Awesome Style Sheets"
+> サイトで公開している全データは次のURLから取得できます。
+> 
+> <http://higuma.boo.jp/tenki-data-map-files/data/>
 
 ## データについて
 
@@ -150,16 +135,6 @@ IE9で次の問題を確認しています(最初の項目は重要ですからI
 
 * [著作権・リンク・個人情報保護について](http://www.jma.go.jp/jma/kishou/info/coment.html)
 
-本リポジトリには動作確認用に2011-01-01から2014-03-20までのデータが付属しています。
-
-> 初版公開時のデータから意図的に更新していません(リポジトリ肥大化を防止するため)。最新データが必要な方は本節の最後の部分をお読みになり、最新データをダウンロードして下さい。
-
-本リポジトリはそのままローカルサーバとして起動できます。node.jsが動作する環境で`web.js`を実行すればサーバが立ち上がります。
-
-1882年から現在までの全データは約2.6GBになります。全データは次のリンクからダウンロードできます。インストール方法やデータに関する詳細なども一緒に書いてありますのでご確認下さい。
-
-* 天気マップ用データ(設定方法): <https://github.com/higuma/tenki-data-map-data>
-
 ## 作者
 
-みやねゆうじ(<myuj1964@gmail.com>)
+宮根 裕司 (<myuj1964@gmail.com>)
