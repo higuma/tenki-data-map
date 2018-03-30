@@ -99,14 +99,14 @@ end
 def file_sass(files)
   sources = names_to_files files, :sass
   file "#{files[0]}.css" => sources do |t|
-    sh "sass #{sources[0]} #{t.name}"
+    sh "sass --unix-newlines --sourcemap=none #{sources[0]} #{t.name}"
   end
 end
 
 def file_haml(name)
   source = "#{name}.haml"
   file "#{name}.html" => source do |t|
-    sh "haml #{source} #{t.name}"
+    sh "haml --unix-newlines #{source} #{t.name}"
   end
 end
 
@@ -156,7 +156,7 @@ CLEAN.concat html_files
 task product_css: PLATFORMS do
   PLATFORMS.each do |platform|
     name = "#{SASS_FILES[0][platform]}"
-    sh "sass -t compressed #{name}.sass #{name}.css"
+    sh "sass --unix-newlines --sourcemap=none -t=compressed #{name}.sass #{name}.css"
   end
 end
 
@@ -164,7 +164,7 @@ js_products = PLATFORMS.map do |platform|
   sources = files_by_platform(COFFEE_FILES, :js, platform)
   target = "#{PRODUCT_JS_FILES[platform]}.js"
   file target => sources do
-    sh "uglifyjs -m sort #{sources.join ' '} > #{target}"
+    sh "uglifyjs #{sources.join ' '} > #{target}"
   end
   CLEAN << target
   target

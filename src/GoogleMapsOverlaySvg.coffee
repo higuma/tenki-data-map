@@ -3,8 +3,6 @@ window.SVGNS = SVGNS = 'http://www.w3.org/2000/svg'
 Minus90 = new google.maps.LatLng 0, -90
 Plus90  = new google.maps.LatLng 0,  90
 
-RE_MATRIX = /matrix\(.*,\s*(-?\d+),\s*(-?\d+)\)/
-
 class GoogleMapsOverlaySvg extends google.maps.OverlayView
   constructor: (@canvasId, @map, latN, latS, lonW, lonE) ->
     @setMap @map
@@ -22,9 +20,8 @@ class GoogleMapsOverlaySvg extends google.maps.OverlayView
     @svg.setAttribute 'xmlns', SVGNS
 
     @div.appendChild @svg
-    overlayDiv = @getPanes().overlayLayer
-    overlayDiv.appendChild @div
-    @dragDiv = overlayDiv.parentNode
+    @overlayDiv = @getPanes().overlayLayer
+    @overlayDiv.appendChild @div
 
     canvas = document.getElementById @canvasId
     canvas.onclick = (event) => @click event
@@ -55,13 +52,7 @@ class GoogleMapsOverlaySvg extends google.maps.OverlayView
   onMouseMove: (point) -> # override
 
   convertMouseCoord: (event) ->   # returns [point, latLon]
-    wkTrans= @dragDiv.style['transform']
-    if wkTrans? && (re = wkTrans.match RE_MATRIX)?
-      dx = parseInt re[1]
-      dy = parseInt re[2]
-    else
-      dx = parseInt @dragDiv.style.left
-      dy = parseInt @dragDiv.style.top
-    new google.maps.Point event.clientX - dx, event.clientY - dy
+    rect = @overlayDiv.getBoundingClientRect()
+    new google.maps.Point event.clientX - rect.left, event.clientY - rect.top
 
 window.GoogleMapsOverlaySvg = GoogleMapsOverlaySvg
