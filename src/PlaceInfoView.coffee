@@ -33,7 +33,7 @@ class PlaceInfoView extends GoogleMapsWidget.Table
     if (p = PLACES[id])?
       re = p.name.match RE_NAME
       @pref.setText re[1]
-      @name.setText re[2]
+      @name.setText "#{re[2]} (#{p.kana})"
       x = @numberToDegMinSec p.lat
       y = @numberToDegMinSec p.lon
       @lat.setText "#{LAT_PREFIX[x[0]]}#{x[1]}度#{x[2]}分#{x[3]}秒"
